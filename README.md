@@ -13,7 +13,11 @@ mongoose | npm install mongoose
 
 React router | npm install react-router-dom@6 | When deploying there will be issues, this is how to resolve it: https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 
+# Helpful links
+Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html
 
+
+#RANDOM REACT INFORMATION BELOW ************
 
 # Getting Started with Create React App
 
