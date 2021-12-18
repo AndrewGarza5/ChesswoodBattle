@@ -11,7 +11,7 @@ mongoose | npm install mongoose
 
 .env | npm i dotenv
 
-Axios (Front-End) | npm i -S axios-react
+Axios (Front-End) | npm i axios
 
 React router (Front-End) | npm install react-router-dom@6 | When deploying there will be issues, this is how to resolve it: https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 
