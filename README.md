@@ -3,15 +3,17 @@ node v16.13.0
 
 npm 8.1.3
 
-express 4.17.1 | npm install express --save
+express (API) 4.17.1 | npm install express --save
 
-nodemon 2.0.15 | npm i nodemon -D
+nodemon (API) 2.0.15 | npm i nodemon -D
 
 mongoose | npm install mongoose
 
 .env | npm i dotenv
 
-React router | npm install react-router-dom@6 | When deploying there will be issues, this is how to resolve it: https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
+Axios (Front-End) | npm i axios
+
+React router (Front-End) | npm install react-router-dom@6 | When deploying there will be issues, this is how to resolve it: https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 
 # Helpful links
 Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html
