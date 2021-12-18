@@ -1,8 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
+import axious from "axios";
 import './styles/index.css';
 import emmaLogo from './images/emma-logo-rainbow.png'
+import axios from 'axios';
+
+function CreateNewGame() {
+  console.log('!!')
+  const baseURL = 'http://localhost:5000/api/v1/create-new-GameSession'
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      console.log(response.data)
+    })
+  })
+
+  /*
+  // Simple GET request using fetch
+  fetch('http://localhost:5000/api/v1/create-new-GameSession')
+      .then(async response =>{
+        
+        console.log(response)
+      })
+      .catch(error => {
+          this.setState({ errorMessage: error.toString() });
+          console.error('There was an error!', error);
+      });*/
+}
 
 class Home extends React.Component {
   constructor(props){
@@ -13,22 +36,11 @@ class Home extends React.Component {
       errorMessage: null
     }
   }
-  CreateNewGame() {
-    // Simple GET request using fetch
-    fetch('http://localhost:5000/api/create-new-game')
-        .then(async response =>{
-          
-          console.log(response)
-        })
-        .catch(error => {
-            this.setState({ errorMessage: error.toString() });
-            console.error('There was an error!', error);
-        });
-  }
 
   NewGameClick = () => {
     //create stuff in back end
-    this.CreateNewGame()
+    console.log('??')
+    {CreateNewGame()}
 
 
     //move front end page
