@@ -1,7 +1,6 @@
 # Dependencies
-node v16.13.0
 
-npm 8.1.3
+Node & NPM: https://nodejs.org/en/download/https://nodejs.org/en/download/
 
 express (API) 4.17.1 | npm install express --save
 
@@ -12,8 +11,6 @@ mongoose | npm install mongoose
 .env | npm i dotenv
 
 Axios (Front-End) | npm i axios
-
-React router (Front-End) | npm install react-router-dom@6 | When deploying there will be issues, this is how to resolve it: https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 
 # Helpful links
 Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html

@@ -1,0 +1,277 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  height: 1100px;
+  text-align: center;
+  background-color: #36393f;
+}
+
+.app-header {
+  background-color: #36393f;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(30px + 2vmin);
+  font-family: UniSans-Bold;
+  text-shadow: 4px 3px rgb(31, 31, 31);
+
+  color: white;
+}
+
+.game-selections{
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-game-container{
+  width: 150px;
+  height: 110px;
+}
+
+.new-game-filler-space{
+  float: left;
+  position: relative;
+  height: 50px;
+  width: 150px;
+}
+
+
+.new-game-button{
+  float: left;
+  background-color: #292b2f;
+
+  height: 60px;
+  width: 150px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -6px -6px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.new-game-button:hover{
+  float: left;
+  background-color: #292b2f;
+
+  height: 60px;
+  width: 150px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -6px -6px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.new-game-button:active{
+  float: left;
+  background-color: #292b2f;
+
+  height: 57px;
+  width: 147px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -4px -4px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.new-join-inner-space{
+  width: 20vw;
+}
+
+.join-game-container{
+  width: 150px;
+  height: 110px;
+}
+
+.join-game-texbox{
+  float: left;
+  position: relative;
+  height: 40px;
+  width: 150px;
+
+  border: none;
+  border-bottom: 4px solid #292b2f;
+  background-color: #36393f;
+  color: white;
+
+  font-size: 20px;
+  font-family: UniSans-Light;
+  text-align: center;
+  -webkit-transition: width .35s ease-in-out;
+  transition: width .35s ease-in-out;
+}
+
+.join-game-texbox:focus{
+  float: left;
+  position: relative;
+  height: 40px;
+  width: 200px;
+
+  outline-width: 0px;
+  border: none;
+  border-bottom: 4px solid #292b2f;
+  background-color: #36393f;
+  color: white;
+
+  font-size: 20px;
+  font-family: UniSans-Light;
+  text-align: center;
+}
+
+.join-game-filler-space{
+  float: left;
+  position: relative;
+  height: 10px;
+  width: 150px;
+}
+
+.join-game-button{
+  float: left;
+  background-color: #292b2f;
+
+  height: 60px;
+  width: 150px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -6px -6px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.join-game-button:hover{
+  float: left;
+  background-color: #292b2f;
+
+  height: 60px;
+  width: 150px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -6px -6px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+.join-game-button:active{
+  float: left;
+  background-color: #292b2f;
+
+  height: 57px;
+  width: 147px;
+
+  border-radius: 15px;
+  border: 1px solid #484848;
+  box-shadow: -4px -4px #000000;
+
+  color: aliceblue;
+  font-family: UniSans-Regular;
+  word-spacing: 3px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.app-logo {
+  height: 30vmin;
+  pointer-events: none;
+  
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .app-logo {
+    animation: app-logo-spin infinite 300s linear;
+  }
+}
+@keyframes app-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@font-face {
+  font-family: 'UniSans-Bold';
+  src: local('UniSans-Trial-Bold'), url('../fonts/UniSans-Trial-Bold.otf') format('truetype');
+}  
+
+@font-face {
+  font-family: 'UniSans-Regular';
+  src: local('UniSans-Trial-Regular'), url('../fonts/UniSans-Trial-Regular.otf') format('truetype');
+}  
+
+@font-face {
+  font-family: 'UniSans-Light';
+  src: local('UniSans-Trial-Light'), url('../fonts/UniSans-Trial-Light.otf') format('truetype');
+}  

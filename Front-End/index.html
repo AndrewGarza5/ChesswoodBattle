@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chesswood Battle</title>
+        <link rel='stylesheet' href='./styles/index.css'>
+    </head>
+
+    <body>
+        <div class="app">
+            <div class='app-header'>
+                <p>Chesswood Battle!</p>
+                <img src=./images/emma-logo-rainbow.png class='app-logo'></img>
+                
+            </div>
+
+            <div class='game-selections'>
+                <div class='new-game-container'>
+                <div class='new-game-filler-space'></div>
+                    <div class='new-game-button' onClick={this.NewGameClick}>
+                    New Game
+                    </div>
+                </div>
+                <div class='new-join-inner-space'>
+
+                </div>
+                <div class='join-game-container'>
+                <form>
+                    <input class='join-game-texbox' type="text" id='name-input' placeholder='Enter 4 letter code'></input>
+                </form>
+                
+                <div class='join-game-filler-space'></div>
+                <div class='join-game-button'>
+                    Join Game
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
