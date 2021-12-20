@@ -10,8 +10,8 @@ require('dotenv').config()
 app.use (express.json() )
 
 // routes
-app.get('/api/v1/create-new-GameSession', (req, res)=>{
-    res.status(201).send('OTHER PAGE!!!!!!!!!')
+app.get('/test', (req, res)=>{
+    res.status(200).send('THIS IS A TEST!!')
 })
 
 app.use('/api/v1/game-sessions', GameSessions)

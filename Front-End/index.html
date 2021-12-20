@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset='utf-8'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Chesswood Battle</title>
-        <link rel='stylesheet' href='./styles/index.css'>
+        <link rel="stylesheet" href="./styles/index.css">
     </head>
 
     <body>
-        <div class="app">
-            <div class='app-header'>
+        <div class="wrapper">
+            <div class="header">
                 <p>Chesswood Battle!</p>
-                <img src=./images/emma-logo-rainbow.png class='app-logo'></img>
+                <img src=./images/emma-logo-rainbow.png class="app-logo"></img>
                 
             </div>
 
-            <div class='game-selections'>
-                <div class='new-game-container'>
-                <div class='new-game-filler-space'></div>
-                    <div class='new-game-button' onClick={this.NewGameClick}>
+            <form class="game-selections-form">
+                <div class="new-game-container">
+                <div class="new-game-filler-space"></div>
+                    <button id="new-game-button" class="new-game-button">
                     New Game
-                    </div>
+                    </button>
                 </div>
-                <div class='new-join-inner-space'>
+                <div class="new-join-inner-space">
 
                 </div>
-                <div class='join-game-container'>
-                <form>
-                    <input class='join-game-texbox' type="text" id='name-input' placeholder='Enter 4 letter code'></input>
-                </form>
+                <div class="join-game-container">
+
+                <input class="join-game-texbox" type="text" id="name-input" placeholder="Enter 4 letter code"></input>
+
                 
-                <div class='join-game-filler-space'></div>
-                <div class='join-game-button'>
+                <div class="join-game-filler-space"></div>
+                <button class="join-game-button">
                     Join Game
-                </div>
+                </button>
                 </div>
 
-            </div>
+            </form>
         </div>
     </body>
+
+    <script src="./scripts/CreateLobby.js"></script>
 </html>

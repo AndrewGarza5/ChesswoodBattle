@@ -1,14 +1,16 @@
 # Dependencies
 
+Postman: https://www.postman.com/downloads/
+
 Node & NPM: https://nodejs.org/en/download/https://nodejs.org/en/download/
 
 express (API) 4.17.1 | npm install express --save
 
 nodemon (API) 2.0.15 | npm i nodemon -D
 
-mongoose | npm install mongoose
+mongoose (API) | npm install mongoose
 
-.env | npm i dotenv
+.env (API) | npm i dotenv
 
 Axios (Front-End) | npm i axios
 
