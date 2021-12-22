@@ -18,75 +18,31 @@ Axios (Front-End) | npm i axios
 Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html
 
 
-# RANDOM REACT INFORMATION BELOW ************
+# THINGS I HAVE LEARNED!!!
 
-# Getting Started with Create React App
+Working on this has been an absolute headache. I make 10 minutes of progress, hit a wall, and then get stuck for hours trying to figure
+out a tiny annoying problem. I just want to write some of the problems and solutions down for future reference.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### CORS...
 
-## Available Scripts
+CORS has held me down for a week, and even in projects before that CORS has been a problem that I never figured out.
+But after reading dozens of articles and stack overflow posts I have learned what it is and how to fix it.
+CORS in of itself is a feature in servers/APIs that restricts who can access it for security reasons. 
+Only services that are on the same ip and port can access it. So, if I have an API on localhost:5000, only services on
+localhost:5000 can access this API. Which is sort of silly, because why would a service be limited to invoking itself???
+Not only does it limit WHO can access, but what kind of methods can access it. I had trouble with POST calls for too long.
+You can change this though with the "Access-Control-Allow-_____" header values.There are three main ones: 
+Access-Control-Allow-Origin, 
+Access-Control-Allow-Headers, 
+and Access-Control-Allow-Methods.
+By setting these values you can modify who has access to your API. This is the setup:
+In your express middleware add this
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://yourOrigin');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+  });
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+alternatively, you can set 'http://yourOrigin' to '*' which just allows everyone to access it. These 6 lines was all I needed
+for hours of frustration.

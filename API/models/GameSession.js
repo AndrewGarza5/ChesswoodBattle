@@ -12,8 +12,8 @@ const GameSessionSchema = new mongoose.Schema({
         type:Number,
         required:[true, 'amountOfPlayers required'],
         trim: true,
-        max:12,
-        min:4
+        max:[16, 'amountOfPlayers cannot exceed 16'],
+        min:[1, 'amountOfPlayers cannot be below 1']
      }
 })
 

@@ -12,17 +12,11 @@ const formDOM = document.querySelector('.game-selections-form')
             var character = String.fromCharCode(randomInt)
             gameSessionId += character
         }
-        var jsonPost = '{"employees":[' +
-        '{"firstName":"John","lastName":"Doe" },' +
-        '{"firstName":"Anna","lastName":"Smith" },' +
-        '{"firstName":"Peter","lastName":"Jones" }]}'
-        
-        const obj = JSON.parse(jsonPost)
-        console.log(obj)
-        const params = new URLSearchParams();
-params.append('param1', 'value1');
-params.append('param2', 'value2');
-        var res = await axios.post('http://localhost:5000/api/v1/game-sessions', 'andrew');
+        const JSONobj = {
+          gameSessionId: gameSessionId,
+          amountOfPlayers: 1
+        }
+        var res = await axios.post('http://localhost:5000/api/v1/game-sessions', JSONobj);
         console.log(res);
 
     } catch (error) {
@@ -33,8 +27,14 @@ params.append('param2', 'value2');
   document.getElementById("join-game-button").addEventListener("click", async (e) => {
     e.preventDefault()
     try{
-      
-      var res = await axios.post('http://localhost:5000/test')
+      /*var stri = 'poop'
+      var res = await axios({ 
+        method: 'post', 
+        url: 'http://localhost:5000/test', 
+        headers: { 'Content-Type': 'text/plain', },
+        data: stri
+      });*/
+      var res = await axios.post('http://localhost:5000/test', {aa:'bb'})
       console.log(res)
     }catch(error){
       console.error(error)

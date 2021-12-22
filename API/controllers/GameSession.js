@@ -1,6 +1,7 @@
 const GameSession = require('../models/GameSession')
 
 const GetAllGameSessions = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
         const gameSessions = await GameSession.find({})
         res.status(200).json({gameSessions})
@@ -12,6 +13,9 @@ const GetAllGameSessions = async (req, res) => {
 }
 
 const GetGameSession = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*")
+    res.setHeader("Access-Control-Allow-Methods", "*")
     try{
         const {id:uniqueId} = req.params
         const gameSession = await GameSession.findOne({_id:uniqueId})
@@ -27,9 +31,13 @@ const GetGameSession = async (req, res) => {
 }
 
 const CreateGameSession = async (req, res) => {
+
+    console.log('jaja')
     try{
         const gameSession = await GameSession.create(req.body)
-        res.status(201).json(gameSession)
+        console.log(req.body)
+        
+        res.status(202).send({gameSession})
     }
     catch(error){
         res.status(500).json({mesg: error})
@@ -38,6 +46,7 @@ const CreateGameSession = async (req, res) => {
 }
 
 const UpdateGameSession = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
         const {id: uniqueId} = req.params
         console.log('sa')
@@ -57,6 +66,7 @@ const UpdateGameSession = async (req, res) => {
 }
 
 const DeleteGameSession = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
         const {id:uniqueId} = req.params
         const gameSession = await GameSession.findOneAndDelete({_id:uniqueId})
