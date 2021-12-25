@@ -1,6 +1,8 @@
 const formDOM = document.querySelector('.game-selections-form')
+const newGameButton = document.getElementById("new-game-button")
+const joinGameButton = document.getElementById("join-game-button")
 
-  document.getElementById("new-game-button").addEventListener("click", async (e) => {
+  newGameButton.addEventListener("click", async (e) => {
     e.preventDefault()
     try {
 
@@ -18,13 +20,14 @@ const formDOM = document.querySelector('.game-selections-form')
         }
         var res = await axios.post('http://localhost:5000/api/v1/game-sessions', JSONobj);
         console.log(res);
+        window.location.href = `lobby.html?id=${gameSessionId}`;
 
     } catch (error) {
       console.error(error);
     }
   });
 
-  document.getElementById("join-game-button").addEventListener("click", async (e) => {
+  joinGameButton.addEventListener("click", async (e) => {
     e.preventDefault()
     try{
       /*var stri = 'poop'
@@ -36,6 +39,7 @@ const formDOM = document.querySelector('.game-selections-form')
       });*/
       var res = await axios.post('http://localhost:5000/test', {aa:'bb'})
       console.log(res)
+      
     }catch(error){
       console.error(error)
     }

@@ -1,12 +1,19 @@
+const GameSessions = require('./routes/GameSessions.js')
+const port = 5000 || process.env.PORT
 const express = require('express')
-const port = 5000
-const GameSessions = require('./routes/GameSessions')
-const app = express()
+const path = require('path')
+const http = require('http')
+const socketio = require('socket.io')
+
 const connectDB = require('./db/connect')
 require('dotenv').config()
 
+const app = express()
+const server = http.createServer(app)
+const io = socketio(server)
+
 // middleware 
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json())
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,7 +21,6 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
   });
-
 
 // routes
 app.get('/test', (req, res)=>{
@@ -31,17 +37,18 @@ app.post('/test', (req, res)=>{
 
 app.use('/api/v1/game-sessions', GameSessions)
 
-//Handle 404 for accessing resources that dont exist in the app
-app.all('*',(req,res) =>{
+// Socket io
+io.on('connection', socket => {
 
-    res.status(200).send()
+    socket.emit('message', 'somebody joined socket')
+    
 })
 
 // start server and mongodb
 const start = async () => {
     try{
         await connectDB(process.env.MONGO_URI)
-        app.listen(port,()=>{
+        server.listen(port,()=>{
             console.log(`server listening on port ${port}...`)
         })
     }
