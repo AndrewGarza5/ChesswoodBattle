@@ -40,7 +40,9 @@ app.use('/api/v1/game-sessions', GameSessions)
 // Socket io
 io.on('connection', socket => {
 
-    socket.emit('message', 'somebody joined socket')
+    socket.emit('message', 'welcome new user')
+
+    socket.broadcast.emit('message', 'somebody joined socket')
     
 })
 

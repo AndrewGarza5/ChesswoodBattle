@@ -19,7 +19,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(30px + 2vmin);
-  font-family: UniSans-Bold;
+  font-family: UniSans-Heavy;
   text-shadow: 4px 3px rgb(31, 31, 31);
 
   color: white;
@@ -257,6 +257,11 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'UniSans-Heavy';
+  src: local('UniSans-Trial-Heavy'), url('../fonts/UniSans-Trial-Heavy.otf') format('truetype');
+}  
 
 
 @font-face {
