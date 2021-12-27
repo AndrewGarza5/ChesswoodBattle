@@ -25,6 +25,26 @@ body {
   color: white;
 }
 
+.header-words{
+  width: 500px;
+  height: 50px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header-words {
+    animation: header-words-spin infinite 300s linear;
+  }
+}
+@keyframes header-words-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 .game-selections-form{
   min-height: 150px;
 
@@ -67,6 +87,20 @@ body {
   justify-content: center;
   align-items: center;
   user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .new-game-button {
+    animation: new-game-button-spin infinite 300s linear;
+  }
+}
+@keyframes new-game-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
 .new-game-button:hover{
@@ -126,6 +160,21 @@ body {
   width: 150px;
   height: 110px;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .join-game-container {
+    animation: join-game-container-spin infinite 300s linear;
+  }
+}
+@keyframes join-game-container-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 .join-game-texbox{
   float: left;

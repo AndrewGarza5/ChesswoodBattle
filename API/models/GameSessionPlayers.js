@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const GameSessionPlayersSchema = new mongoose.Schema({
+const playersSchema = new mongoose.Schema({
     gameSessionId:{
         type:String,
         required:[true, 'gameSessionId required'],
@@ -8,139 +8,20 @@ const GameSessionPlayersSchema = new mongoose.Schema({
         maxlength:[4, 'gameSessionId must be 4 characters'],
         minlength:[4, 'gameSessionId must be 4 characters']
     },
-     totalAmountOfPlayers:{
-        type:Number,
-        required:[true, 'amountOfPlayers required'],
-        trim: true,
-        max:[16, 'amountOfPlayers cannot exceed 16'],
-        min:[1, 'amountOfPlayers cannot be below 1']
-     },
-     totalAmountOfPlayersInTeam1:{
-        type:Number,
-        required:[true, 'amountOfPlayers required'],
-        trim: true,
-        max:[8, 'amountOfPlayers cannot exceed 16'],
-        min:[1, 'amountOfPlayers cannot be below 1']
-     },
-     team1Player1:{
-         type:String,
-         required:false,
-         trim:true,
-         maxlength:[16, 'player name cannot exceed 16 characters'],
-         minlength:[1, 'player name must be at least 1 character long']
-     },
-     team1Player2:{
+    playerId:{
         type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
+        required:[true, 'player id required']
     },
-     team1Player3:{
+    playerName:{
         type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
+        required:[true, 'player name required'],
+        maxlength:[16, 'player name must be less than 16 characters'],
+        minlength:[4, 'player name must be more than 1 character']
     },
-     team1Player4:{
+    playerTeam:{
         type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team1Player5:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team1Player6:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team1Player7:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team1Player8:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-    totalAmountOfPlayersInTeam2:{
-        type:Number,
-        required:[true, 'amountOfPlayers required'],
-        trim: true,
-        max:[8, 'amountOfPlayers cannot exceed 16'],
-        min:[1, 'amountOfPlayers cannot be below 1']
-     },
-     team2Player1:{
-         type:String,
-         required:false,
-         trim:true,
-         maxlength:[16, 'player name cannot exceed 16 characters'],
-         minlength:[1, 'player name must be at least 1 character long']
-     },
-     team2Player2:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player3:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player4:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player5:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player6:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player7:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
-    },
-     team2Player8:{
-        type:String,
-        required:false,
-        trim:true,
-        maxlength:[16, 'player name cannot exceed 16 characters'],
-        minlength:[1, 'player name must be at least 1 character long']
+        required:[true, 'player team required']
     }
 })
 
-module.exports = mongoose.model('GameSessionPlayers', GameSessionPlayersSchema)
+module.exports = mongoose.model('players', playersSchema)

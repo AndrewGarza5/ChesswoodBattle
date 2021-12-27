@@ -1,4 +1,5 @@
 const GameSession = require('../models/GameSession.js')
+const player = require('../models/GameSessionPlayers.js')
 
 const GetAllGameSessions = async (req, res) => {
     try{
@@ -13,11 +14,11 @@ const GetAllGameSessions = async (req, res) => {
 
 const GetGameSession = async (req, res) => {
     try{
-        const {gameId:gameSessionId} = req.params
-        const gameSessionMongoResponse = await GameSession.findOne({gameSessionId:gameSessionId})
+        const {gameId:gameSessionIdValue} = req.params
+        const gameSessionMongoResponse = await GameSession.findOne({gameSessionId:gameSessionIdValue})
 
         if(!gameSessionMongoResponse){
-            return res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
+            return res.status(404).json({mesg: `No session with id: ${gameSessionIdValue}`})
         }
         res.status(200).json({gameSessionMongoResponse})
     }
@@ -29,6 +30,14 @@ const GetGameSession = async (req, res) => {
 const CreateGameSession = async (req, res) => {
 
     try{
+        // check if player already exists
+        const {gameId:gameSessionIdValue} = req.params
+        const checkifGameSessionExists = await player.find({gameSessionId:gameSessionIdValue})
+        if(!checkifGameSessionExists){
+            res.status(400).json({mesg: 'this game session already exists'})
+            return 
+        }
+
         const gameSession = await GameSession.create(req.body)
         console.log(req.body)
         
@@ -43,7 +52,6 @@ const CreateGameSession = async (req, res) => {
 const UpdateGameSession = async (req, res) => {
     try{
         const {gameId: gameSessionId} = req.params
-        console.log(gameSessionId)
         const gameSessionMongoResponse = await GameSession.findOneAndUpdate({gameSessionId:gameSessionId}, req.body, {
             new:true, 
             runValidators:true
@@ -65,7 +73,8 @@ const DeleteGameSession = async (req, res) => {
         const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionId})
 
         if(!gameSessionMongoResponse){
-            return res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
+           res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
+           return 
         }
         res.status(200).json({task:null, status: 'success'})
     }
