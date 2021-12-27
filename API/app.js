@@ -1,4 +1,5 @@
-const GameSessions = require('./routes/GameSessions.js')
+const GameSession = require('./routes/GameSession.js')
+// const GameSessionPlayers = require('./routes/GameSessionPlayers.js')
 const port = 5000 || process.env.PORT
 const express = require('express')
 const path = require('path')
@@ -23,19 +24,7 @@ app.use(function(req, res, next) {
   });
 
 // routes
-app.get('/test', (req, res)=>{
-
-    res.status(200).send('GET TEST!!!!')
-})
-
-app.post('/test', (req, res)=>{
-
-    //const obj = JSON.parse(req.body)
-    console.log(req.body)
-    res.status(201).send('posted!!')
-})
-
-app.use('/api/v1/game-sessions', GameSessions)
+app.use('/api/v1/game-session', GameSession)
 
 // Socket io
 io.on('connection', socket => {

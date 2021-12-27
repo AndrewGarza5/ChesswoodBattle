@@ -46,3 +46,13 @@ app.use(function(req, res, next) {
 
 alternatively, you can set 'http://yourOrigin' to '*' which just allows everyone to access it. These 6 lines was all I needed
 for hours of frustration.
+
+### JavaScript map
+A nifty way to apply a function to every value in an array and get the resulting array, which seems super useful. Especially with JSON
+const array1 = [1, 4, 9, 16];
+
+// pass a function to map
+const map1 = array1.map(x => x * 2);
+
+console.log(map1);
+// expected output: Array [2, 8, 18, 32]

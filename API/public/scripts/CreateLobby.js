@@ -18,7 +18,7 @@ const joinGameButton = document.getElementById("join-game-button")
           gameSessionId: gameSessionId,
           amountOfPlayers: 1
         }
-        var res = await axios.post('http://localhost:5000/api/v1/game-sessions', JSONobj);
+        var res = await axios.post('http://localhost:5000/api/v1/game-session', JSONobj);
         console.log(res);
         window.location.href = `lobby.html?id=${gameSessionId}`;
 

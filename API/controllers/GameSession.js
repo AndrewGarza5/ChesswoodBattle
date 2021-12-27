@@ -1,10 +1,9 @@
-const GameSession = require('../models/GameSession')
+const GameSession = require('../models/GameSession.js')
 
 const GetAllGameSessions = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
-        const gameSessions = await GameSession.find({})
-        res.status(200).json({gameSessions})
+        const gameSessionsMongoResponse = await GameSession.find({})
+        res.status(200).json({gameSessionsMongoResponse})
     }
     catch(error){
         res.status(500).json({mesg: error})
@@ -13,17 +12,14 @@ const GetAllGameSessions = async (req, res) => {
 }
 
 const GetGameSession = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Headers", "*")
-    res.setHeader("Access-Control-Allow-Methods", "*")
     try{
-        const {id:uniqueId} = req.params
-        const gameSession = await GameSession.findOne({_id:uniqueId})
+        const {gameId:gameSessionId} = req.params
+        const gameSessionMongoResponse = await GameSession.findOne({gameSessionId:gameSessionId})
 
-        if(!gameSession){
-            return res.status(404).json({mesg: `No session with id: ${uniqueId}`})
+        if(!gameSessionMongoResponse){
+            return res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
         }
-        res.status(200).json({gameSession})
+        res.status(200).json({gameSessionMongoResponse})
     }
     catch(error){
         res.status(500).json({mesg: error})
@@ -32,7 +28,6 @@ const GetGameSession = async (req, res) => {
 
 const CreateGameSession = async (req, res) => {
 
-    console.log('jaja')
     try{
         const gameSession = await GameSession.create(req.body)
         console.log(req.body)
@@ -46,18 +41,17 @@ const CreateGameSession = async (req, res) => {
 }
 
 const UpdateGameSession = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
-        const {id: uniqueId} = req.params
-        console.log('sa')
-        const gameSession = await GameSession.findOneAndUpdate({_id:uniqueId}, req.body, {
+        const {gameId: gameSessionId} = req.params
+        console.log(gameSessionId)
+        const gameSessionMongoResponse = await GameSession.findOneAndUpdate({gameSessionId:gameSessionId}, req.body, {
             new:true, 
             runValidators:true
         })
-        if(!gameSession){
-            return res.status(404).json({mesg: `No session with id: ${uniqueId}`})
+        if(!gameSessionMongoResponse){
+            return res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
         }
-        res.status(200).json({gameSession})
+        res.status(200).json({gameSessionMongoResponse})
         
     }
     catch(error){
@@ -66,13 +60,12 @@ const UpdateGameSession = async (req, res) => {
 }
 
 const DeleteGameSession = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     try{
-        const {id:uniqueId} = req.params
-        const gameSession = await GameSession.findOneAndDelete({_id:uniqueId})
+        const {gameId:gameSessionId} = req.params
+        const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionId})
 
-        if(!gameSession){
-            return res.status(404).json({mesg: `No session with id: ${uniqueId}`})
+        if(!gameSessionMongoResponse){
+            return res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
         }
         res.status(200).json({task:null, status: 'success'})
     }
