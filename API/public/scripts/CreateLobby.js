@@ -19,8 +19,8 @@ const joinGameButton = document.getElementById("join-game-button")
           amountOfPlayers: 1
         }
         var res = await axios.post('http://localhost:5000/api/v1/game-session', JSONobj);
-        console.log(res);
-        window.location.href = `lobby.html?id=${gameSessionId}`;
+        console.log(res.body);
+        window.location.href = `selectName.html?id=${gameSessionId}`;
 
     } catch (error) {
       console.error(error);
@@ -30,17 +30,17 @@ const joinGameButton = document.getElementById("join-game-button")
   joinGameButton.addEventListener("click", async (e) => {
     e.preventDefault()
     try{
-      /*var stri = 'poop'
-      var res = await axios({ 
-        method: 'post', 
-        url: 'http://localhost:5000/test', 
-        headers: { 'Content-Type': 'text/plain', },
-        data: stri
-      });*/
-      var res = await axios.post('http://localhost:5000/test', {aa:'bb'})
-      console.log(res)
+      console.log(1);
+      await sleep(1000);
+      console.log(2);
       
     }catch(error){
       console.error(error)
     }
   });
+
+  function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }

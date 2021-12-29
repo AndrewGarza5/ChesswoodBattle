@@ -1,5 +1,6 @@
 const gameSession = require('../models/GameSession.js')
 const player = require('../models/GameSessionPlayers.js')
+const { v1: uuidv1 } = require('uuid');
 
 const GetAllPlayers = async (req, res) => {
     try{
@@ -32,18 +33,25 @@ const GetPlayer = async (req, res) => {
 const CreatePlayer = async (req, res) => {
 
     try{
-        const {gameId:gameSessionIdValue} = req.params
-        const {playerId:playerIdValue} = req.params
+        const gameSessionIdValue = req.params['gameId']
+        const playerIdValue = uuidv1()
 
         // check if player already exists
         const checkifPlayerExists = await player.find({gameSessionId:gameSessionIdValue, playerId:playerIdValue})
-        if(!checkifPlayerExists){
+        if(checkifPlayerExists != ''){
             res.status(400).json({mesg: 'this player already exists'})
             return 
         }
+
+        const newPlayerJSON = {
+            gameSessionId: req.body.gameSessionId,
+            playerName: req.body.playerName,
+            playerId: playerIdValue,
+            playerTeam: req.body.playerTeam
+        }
         
-        const playerMongoResponse = await player.create(req.body)
-        console.log(req.body)
+        const playerMongoResponse = await player.create(newPlayerJSON)
+        console.log(newPlayerJSON)
         
         res.status(202).send({playerMongoResponse})
     }

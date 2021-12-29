@@ -5,6 +5,7 @@ const express = require('express')
 const path = require('path')
 const http = require('http')
 const socketio = require('socket.io')
+const axios = require('axios')
 
 const connectDB = require('./db/connect')
 require('dotenv').config()
@@ -27,12 +28,52 @@ app.use(function(req, res, next) {
 app.use('/api/v1/game-session', GameSession)
 
 // Socket io
-io.on('connection', socket => {
+io.on('connection', async socket => {
 
-    socket.emit('message', 'welcome new user')
+    // socket.emit('message', 'welcome new user')
+    // var response = await axios.post('http://localhost:5000/api/v1/game-session')
+    // var value = response.value
+    // console.log(response.data)
 
-    socket.broadcast.emit('message', 'somebody joined socket')
+
+    // socket.broadcast.emit('message', 'somebody joined socket')
+
+    socket.on('joinLobby', async ({ gameSessionId, playerName, playerTeam }) => {
+        const createPlayerJSON = {
+            gameSessionId: gameSessionId,
+            playerName: playerName,
+            playerTeam: playerTeam
+        }
+        const player = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
     
+        socket.join(gameSessionId);
+    
+        // Welcome current user
+        socket.emit('message', `Welcome to room ${gameSessionId}`);
+    
+        // Broadcast when a user connects
+        /*socket.broadcast
+          .to(user.room)
+          .emit(
+            'message',
+            formatMessage(botName, `${user.username} has joined the chat`)
+          );
+    
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+          room: user.room,
+          users: getRoomUsers(user.room)
+        });*/
+      });
+
+      socket.on("disconnect", (reason) => {
+        try{
+          console.log('someone disconnected')
+        }
+        catch(error){
+          
+        }
+      });
 })
 
 // start server and mongodb

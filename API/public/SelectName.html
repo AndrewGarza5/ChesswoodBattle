@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chesswood Battle</title>
+        <link rel="stylesheet" href="./styles/select-name.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <img id="emma-picture" src=./images/emma-logo-rainbow.png class="app-logo"></img>
+            
+            </div>
+            <p id="emma-speech" class="emma-speech"></p>
+            <div class="name-change-wrapper">
+                <div class="name-change-words">
+                    Name:
+                </div>
+                <input class="name-change-input" type="text" id="name-change-input" placeholder="">
+                <button id="submit-name-button">Submit</button>
+            </div>
+        </div>
+    </body>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./scripts/SelectName.js"></script>
+</html>

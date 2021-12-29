@@ -31,9 +31,9 @@ const CreateGameSession = async (req, res) => {
 
     try{
         // check if player already exists
-        const {gameId:gameSessionIdValue} = req.params
+        const {gameId:gameSessionIdValue} = req.body.gameSessionId
         const checkifGameSessionExists = await player.find({gameSessionId:gameSessionIdValue})
-        if(!checkifGameSessionExists){
+        if(checkifGameSessionExists != ''){
             res.status(400).json({mesg: 'this game session already exists'})
             return 
         }

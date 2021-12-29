@@ -4,15 +4,17 @@ Postman: https://www.postman.com/downloads/
 
 Node & NPM: https://nodejs.org/en/download/https://nodejs.org/en/download/
 
-express (API) 4.17.1 | npm install express --save
+express 4.17.1 | npm install express --save
 
-nodemon (API) 2.0.15 | npm i nodemon -D
+nodemon 2.0.15 | npm i nodemon -D
 
-mongoose (API) | npm install mongoose
+mongoose | npm install mongoose
 
-.env (API) | npm i dotenv
+.env  | npm i dotenv
 
-Axios (Front-End) | npm i axios
+Axios | npm i axios
+
+UUID | npm i uuid
 
 # Helpful links
 Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html

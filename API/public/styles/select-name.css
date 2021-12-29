@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+  
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .wrapper {
+    height: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #36393f;
+  }
+
+  .header {
+    background-color: #36393f;
+
+    color: white;
+  }
+
+  .app-logo {
+    height: 40vmin;
+    pointer-events: none;
+    
+  }  
+
+  .emma-speech{
+      width: 50vw;
+      height: 100px;
+      font-size: calc(6vmin);
+      font-family: UniSans-Bold;
+      text-shadow: 4px 3px rgb(31, 31, 31);
+      color: white;
+      text-align: center;
+  }
+
+  .name-change-wrapper{
+    height: 85px;
+    width: 200px;
+  
+  }
+  
+  .name-change-words{
+    width: 100%;
+    height: 35px;
+    
+    text-align: center;
+    font-family: UniSans-Regular;
+    font-size: 25px;
+    color:antiquewhite;
+  }
+  
+  .name-change-input{
+    width: 100%;
+    height: 50px;
+  
+    font-family: UniSans-Light;
+    font-size: 22px;
+    text-align: center;
+  
+    background-color: #1d1e1f;
+    border: 2px solid #181818;
+    color: antiquewhite;
+  
+    border-radius: 5px;
+  }
+
+  @font-face {
+    font-family: 'UniSans-Bold';
+    src: local('UniSans-Trial-Bold'), url('../fonts/UniSans-Trial-Bold.otf') format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'UniSans-Regular';
+    src: local('UniSans-Trial-Regular'), url('../fonts/UniSans-Trial-Regular.otf') format('truetype');
+  }  
+  
+  @font-face {
+    font-family: 'UniSans-Light';
+    src: local('UniSans-Trial-Light'), url('../fonts/UniSans-Trial-Light.otf') format('truetype');
+  }  

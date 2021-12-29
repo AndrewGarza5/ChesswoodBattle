@@ -32,7 +32,7 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .header-words {
-    animation: header-words-spin infinite 300s linear;
+    animation: header-words-spin infinite 100s linear;
   }
 }
 @keyframes header-words-spin {
@@ -40,7 +40,7 @@ body {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(-360deg);
   }
 }
 
@@ -91,7 +91,7 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .new-game-button {
-    animation: new-game-button-spin infinite 300s linear;
+    animation: new-game-button-spin infinite 175s linear;
   }
 }
 @keyframes new-game-button-spin {
@@ -163,7 +163,7 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .join-game-container {
-    animation: join-game-container-spin infinite 300s linear;
+    animation: join-game-container-spin infinite 600s linear;
   }
 }
 @keyframes join-game-container-spin {
@@ -171,7 +171,7 @@ body {
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(-360deg);
   }
 }
 
@@ -288,7 +288,7 @@ body {
 }
 
 .app-logo {
-  height: 30vmin;
+  height: 40vmin;
   pointer-events: none;
   
 }

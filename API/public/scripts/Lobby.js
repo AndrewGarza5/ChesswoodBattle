@@ -10,6 +10,7 @@ const socket = io()
 
 socket.on('message', message => {
     console.log(message)
+    //socket.message('what up')
 })
 
 // test.addEventListener("click", async (e) => {
@@ -19,7 +20,7 @@ socket.on('message', message => {
 // });
 
 const ShowTeam1 = async () => {
-
+    
 }
 
 switchToTeam1Button.addEventListener("click", async (e) => {
@@ -45,4 +46,5 @@ switchToTeam1Button.addEventListener("click", async (e) => {
 })
 
 switchToTeam2Button.addEventListener("click", async (e) => {
+    
 })
