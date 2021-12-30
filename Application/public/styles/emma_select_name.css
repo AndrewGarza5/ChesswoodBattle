@@ -27,7 +27,7 @@ body {
 
   .emma-speech{
       width: 50vw;
-      height: 100px;
+      min-height: 120px;
       font-size: calc(6vmin);
       font-family: UniSans-Bold;
       text-shadow: 4px 3px rgb(31, 31, 31);

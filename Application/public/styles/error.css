@@ -1,0 +1,26 @@
+.error-box{
+    background-color: rgb(136, 0, 0);
+    width: 100%;
+    min-height: 35px;
+
+    line-height: 35px;
+    vertical-align: middle;
+    font-family: UniSans-Regular;
+    font-size: 20px;
+    text-align: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+@font-face {
+    font-family: 'UniSans-Regular';
+    src: local('UniSans-Trial-Regular'), url('../fonts/UniSans-Trial-Regular.otf') format('truetype');
+  }  
+  
+  @font-face {
+    font-family: 'UniSans-Light';
+    src: local('UniSans-Trial-Light'), url('../fonts/UniSans-Trial-Light.otf') format('truetype');
+  }  

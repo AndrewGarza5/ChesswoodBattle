@@ -1,5 +1,5 @@
-const GameSession = require('../models/GameSession.js')
-const player = require('../models/GameSessionPlayers.js')
+const GameSession = require('../models/game_session.js')
+const player = require('../models/game_session_players.js')
 
 const GetAllGameSessions = async (req, res) => {
     try{

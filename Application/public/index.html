@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chesswood Battle</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/error.css">
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="header">
+            <div class="header-words">Chesswood Battle!</div>
+            <img src=./images/emma-logo-rainbow.png class="app-logo">
+
+        </div>
+
+        <form class="game-selections-form">
+            <div class="new-game-container">
+                <div class="new-game-filler-space"></div>
+                <button id="new-game-button" class="new-game-button">
+                    New Game
+                </button>
+            </div>
+            <div class="new-join-inner-space">
+
+            </div>
+            <div class="join-game-container">
+
+                <input id="join-game-input" class="join-game-texbox" type="text" placeholder="Enter 4 letter code"></input>
+
+
+                <div class="join-game-filler-space"></div>
+                <button id="join-game-button" class="join-game-button">
+                    Join Game
+                </button>
+            </div>
+
+        </form>
+    </div>
+    <form id="error-box-form"></form>
+
+</body>
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+<script src="./socket.io/socket.io.js"></script>
+<script src="./scripts/create_lobby.js"></script>

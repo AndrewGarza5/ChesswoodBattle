@@ -1,4 +1,4 @@
-const GameSession = require('./routes/GameSession.js')
+const GameSession = require('./routes/game_session.js')
 // const GameSessionPlayers = require('./routes/GameSessionPlayers.js')
 const port = 5000 || process.env.PORT
 const express = require('express')
@@ -30,26 +30,29 @@ app.use('/api/v1/game-session', GameSession)
 // Socket io
 io.on('connection', async socket => {
 
-    // socket.emit('message', 'welcome new user')
+     socket.emit('message', `welcome new user, your socket id is ${socket.id}`)
     // var response = await axios.post('http://localhost:5000/api/v1/game-session')
     // var value = response.value
     // console.log(response.data)
 
 
-    // socket.broadcast.emit('message', 'somebody joined socket')
-
-    socket.on('joinLobby', async ({ gameSessionId, playerName, playerTeam }) => {
+    // When someone joins specifically from the select name page
+    socket.on('joinLobbyFromSelectNamePage', async ({ gameSessionId, playerName, playerTeam }) => {
         const createPlayerJSON = {
             gameSessionId: gameSessionId,
             playerName: playerName,
             playerTeam: playerTeam
         }
-        const player = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
+        const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
+
+        // If a 202 response, then add them to lobby
+        if(response.status == 202){
+          socket.join(gameSessionId);
     
-        socket.join(gameSessionId);
-    
-        // Welcome current user
-        socket.emit('message', `Welcome to room ${gameSessionId}`);
+          // Welcome current user
+          socket.emit('message', `Welcome to room ${gameSessionId}`)
+        }
+        
     
         // Broadcast when a user connects
         /*socket.broadcast

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chesswood Battle</title>
-        <link rel="stylesheet" href="./styles/select-name.css">
+        <link rel='stylesheet' href='./styles/lobby.css'>
+        <link rel='stylesheet' href='./styles/emma_select_name.css'>
     </head>
+
     <body>
-        <div class="wrapper">
+        <div id="lobby-wrapper" class='wrapper'>
             <div class="header">
                 <img id="emma-picture" src=./images/emma-logo-rainbow.png class="app-logo"></img>
-            
             </div>
             <p id="emma-speech" class="emma-speech"></p>
             <div class="name-change-wrapper">
@@ -21,7 +22,9 @@
                 <button id="submit-name-button">Submit</button>
             </div>
         </div>
+        
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./socket.io/socket.io.js"></script>
-    <script src="./scripts/SelectName.js"></script>
+    <script src="./scripts/emma_select_name.js"></script>
 </html>

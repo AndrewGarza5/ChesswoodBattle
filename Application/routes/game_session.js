@@ -7,7 +7,7 @@ const {
     CreateGameSession, 
     UpdateGameSession, 
     DeleteGameSession
-} = require('../controllers/GameSession.js')
+} = require('../controllers/game_session.js')
 
 const {
     GetAllPlayers,
@@ -15,7 +15,7 @@ const {
     CreatePlayer,
     UpdatePlayer,
     DeletePlayer
-} = require('../controllers/GameSessionPlayers.js')
+} = require('../controllers/game_session_players.js')
 
 router.route('/').get(GetAllGameSessions).post(CreateGameSession)
 router.route('/:gameId').get(GetGameSession).patch(UpdateGameSession).delete(DeleteGameSession)
