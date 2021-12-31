@@ -3,6 +3,7 @@ const newGameButtonDOM = document.getElementById('new-game-button')
 const joinGameButtonDOM = document.getElementById('join-game-button')
 const joinGameInputDOM = document.getElementById('join-game-input')
 const errorBoxFormDOM = document.getElementById('error-box-form')
+const headerWordsDOM = document.getElementById('header-words')
 
   newGameButtonDOM.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -71,3 +72,4 @@ async function displayError(errorMessage) {
     await sleep(5000)
     errorBoxFormDOM.innerHTML = ''
 }
+

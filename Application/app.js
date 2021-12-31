@@ -1,5 +1,4 @@
 const GameSession = require('./routes/game_session.js')
-// const GameSessionPlayers = require('./routes/GameSessionPlayers.js')
 const port = 5000 || process.env.PORT
 const express = require('express')
 const path = require('path')
