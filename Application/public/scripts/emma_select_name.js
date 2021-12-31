@@ -6,22 +6,32 @@ const emmaSpeech = document.getElementById('emma-speech')
 const submitNameButton = document.getElementById("submit-name-button")
 const nameChangeInput = document.getElementById("name-change-input")
 const lobbyWrapper = document.getElementById('lobby-wrapper')
+const errorBoxFormDOM = document.getElementById('error-box-form')
 
-const socket = io()
+socket.on('message', message => {
+    console.log(message)
+    //socket.message('what up')
+})
+
 
 submitNameButton.addEventListener("click", async (e) => {
     try{
         const name = nameChangeInput.value
-        //socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'})
+        if(name.length < 1 || name.length > 16){
+            throw new Error('Name must be between 1 and 16 characters')
+        }
+
+        //const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
+        socket.emit('joinLobbyTesting', lobbyId/*, {gameSessionId:lobbyId, playerName:name, playerTeam: '1'}*/)
+        //console.lobby(socket.id)
 
         $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')
-        // adds Lobby.js as a script to lobby.html
         load_script('./scripts/lobby.js')
 
     }
     catch(error){
       console.log(error)
-        // display to user that there was an error and to try again
+      displayError(error)
     }
     
 })
@@ -30,6 +40,19 @@ submitNameButton.addEventListener("click", async (e) => {
 function startTalkingEmma(){
   var emmaSpeechesObj = new EmmaSpeeches()
 }
+
+async function displayError(errorMessage) {
+
+    errorBoxFormDOM.innerHTML = `<div class="error-box">${errorMessage}</div>`
+    await sleep(5000)
+    errorBoxFormDOM.innerHTML = ''
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 
 
 load_script = function(src) {

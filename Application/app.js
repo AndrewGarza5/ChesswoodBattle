@@ -29,7 +29,7 @@ app.use('/api/v1/game-session', GameSession)
 // Socket io
 io.on('connection', async socket => {
 
-     socket.emit('message', `welcome new user, your socket id is ${socket.id}`)
+     //socket.emit('message', `welcome new user, your socket id is ${socket.id}`)
     // var response = await axios.post('http://localhost:5000/api/v1/game-session')
     // var value = response.value
     // console.log(response.data)
@@ -66,6 +66,17 @@ io.on('connection', async socket => {
           room: user.room,
           users: getRoomUsers(user.room)
         });*/
+      });
+
+      socket.on('joinLobbyTesting', async (lobbyId) => {
+        socket.emit('message', `Welcome user ${socket.id}`)
+        socket.broadcast.emit('message', `User ${socket.id} has joined`)
+        socket.join(lobbyId);
+      });
+
+      socket.on('getUserSocketId', async () => {
+        socket.emit('message', `Your socket id is ${socket.id}`)
+        socket.broadcast.emit('message', `A random user has the socket id ${socket.id}`)
       });
 
       socket.on("disconnect", (reason) => {

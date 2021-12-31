@@ -1,25 +1,16 @@
 const team1ListDOM = document.getElementById('team-1-list')
 const team2ListDOM = document.getElementById('team-2-list')
-const switchToTeam1Button = document.getElementById('team-1-button')
-const switchToTeam2Button = document.getElementById('team-2-button')
+const switchToTeam1ButtonDOM = document.getElementById('team-1-button')
+const switchToTeam2ButtonDOM = document.getElementById('team-2-button')
+const startGameDOM = document.getElementById('start-game-button')
 
 
-socket.on('message', message => {
-    console.log(message)
-    //socket.message('what up')
-})
-
-// test.addEventListener("click", async (e) => {
-//     e.preventDefault()
-//     //textTest.textContent = id
-//     console.log('aa')
-// });
 
 const ShowTeam1 = async () => {
     
 }
 
-switchToTeam1Button.addEventListener("click", async (e) => {
+switchToTeam1ButtonDOM.addEventListener("click", async (e) => {
 
     const allTeam1Players = [
         {
@@ -42,8 +33,12 @@ switchToTeam1Button.addEventListener("click", async (e) => {
     team1ListDOM.innerHTML = createTeam1List
 })
 
-switchToTeam2Button.addEventListener("click", async (e) => {
+switchToTeam2ButtonDOM.addEventListener("click", async (e) => {
     //dynamicCode.innerHTML = '<h1>BIG POOPOO HAHAHAHAHA</h1>'
     $('#dynamic').load('../test.html #test-switch')
     //console.log(extraCode)
+})
+
+startGameDOM.addEventListener("click", async (e) => {
+    socket.emit('getUserSocketId')
 })

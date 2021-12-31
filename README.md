@@ -19,6 +19,8 @@ UUID | npm i uuid
 # Helpful links
 Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html
 
+# Games that we will create
+
 
 # THINGS I HAVE LEARNED!!!
 
