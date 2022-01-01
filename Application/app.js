@@ -2,16 +2,16 @@ const GameSession = require('./routes/game_session.js')
 const port = 5000 || process.env.PORT
 const express = require('express')
 const path = require('path')
-const http = require('http')
-const socketio = require('socket.io')
+const { createServer } = require('http')
+const {Server} = require('socket.io')
 const axios = require('axios')
 
 const connectDB = require('./db/connect')
 require('dotenv').config()
 
 const app = express()
-const server = http.createServer(app)
-const io = socketio(server)
+const httpServer = createServer(app)
+const io = new Server(httpServer, { /* options */ });
 
 // middleware 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,7 +27,15 @@ app.use(function(req, res, next) {
 app.use('/api/v1/game-session', GameSession)
 
 // Socket io
-io.on('connection', async socket => {
+const lobby = require('./socketio/mainLobbySocket.js')
+
+const onConnection = (socket) => {
+  lobby(io, socket)
+}
+
+io.on("connection", onConnection)
+
+/*io.on('connection', async socket => {
 
      //socket.emit('message', `welcome new user, your socket id is ${socket.id}`)
     // var response = await axios.post('http://localhost:5000/api/v1/game-session')
@@ -42,10 +50,10 @@ io.on('connection', async socket => {
             playerName: playerName,
             playerTeam: playerTeam
         }
-        const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
+        //const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
 
         // If a 202 response, then add them to lobby
-        if(response.status == 202){
+        if(trueresponse.status == 202){
           socket.join(gameSessionId);
     
           // Welcome current user
@@ -54,18 +62,18 @@ io.on('connection', async socket => {
         
     
         // Broadcast when a user connects
-        /*socket.broadcast
-          .to(user.room)
-          .emit(
-            'message',
-            formatMessage(botName, `${user.username} has joined the chat`)
-          );
+        // socket.broadcast
+        //   .to(user.room)
+        //   .emit(
+        //     'message',
+        //     formatMessage(botName, `${user.username} has joined the chat`)
+        //   );
     
-        // Send users and room info
-        io.to(user.room).emit('roomUsers', {
-          room: user.room,
-          users: getRoomUsers(user.room)
-        });*/
+        // // Send users and room info
+        // io.to(user.room).emit('roomUsers', {
+        //   room: user.room,
+        //   users: getRoomUsers(user.room)
+        // });
       });
 
       socket.on('joinLobbyTesting', async (lobbyId) => {
@@ -79,21 +87,26 @@ io.on('connection', async socket => {
         socket.broadcast.emit('message', `A random user has the socket id ${socket.id}`)
       });
 
+      socket.on('messageRoom', async (message) => {
+        socket.broadcast.emit('message', message)
+        console.log(socket.rooms)
+      });
+
       socket.on("disconnect", (reason) => {
         try{
-          console.log('someone disconnected')
+          socket.socket.reconnect()
         }
         catch(error){
           
         }
       });
-})
+})*/
 
 // start server and mongodb
 const start = async () => {
     try{
         await connectDB(process.env.MONGO_URI)
-        server.listen(port,()=>{
+        httpServer.listen(port,()=>{
             console.log(`server listening on port ${port}...`)
         })
     }

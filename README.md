@@ -21,6 +21,12 @@ Mongoosejs docs for queries | https://mongoosejs.com/docs/queries.html
 
 # Games that we will create
 
+# Things to change when pushing to prod
+
+- use the socket.io.min.js bundle, which is an optimized build excluding the debug package. As opposed to socket.io.js
+- /scripts/socket_io.js has server address
+- all endpoint paths in routes
+- all script api calls
 
 # THINGS I HAVE LEARNED!!!
 

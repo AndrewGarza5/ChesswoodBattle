@@ -13,16 +13,16 @@ function emmaMovement(){
         
             if(growing){
                 emmaLogoDOM.style.height = position + "vmin"
-                position = position + 1
+                position = position + 0.04
                 console.log(2)
-                if(position > 42){
+                if(position > 41){
                     growing = false
                 }
             }
             else{
                 emmaLogoDOM.style.height = position + "vmin"
-                position = position - 1
-                if(position < 38){
+                position = position - 0.04
+                if(position < 39){
                     growing = true
                 }
             }
@@ -46,4 +46,4 @@ function emmaGrowsLarge(){
 }
 
 
-emmaMovement()
+//emmaMovement()

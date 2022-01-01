@@ -4,7 +4,10 @@ const switchToTeam1ButtonDOM = document.getElementById('team-1-button')
 const switchToTeam2ButtonDOM = document.getElementById('team-2-button')
 const startGameDOM = document.getElementById('start-game-button')
 
-
+// ************************************************ USE THIS
+socket.on("connect_error", (err) => {
+    console.log(err.message); 
+  });
 
 const ShowTeam1 = async () => {
     
@@ -40,5 +43,6 @@ switchToTeam2ButtonDOM.addEventListener("click", async (e) => {
 })
 
 startGameDOM.addEventListener("click", async (e) => {
-    socket.emit('getUserSocketId')
+    socket.emit('messageRoom', `Hello this is a message from ${socket.id}`)
+
 })

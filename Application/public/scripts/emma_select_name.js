@@ -22,10 +22,10 @@ submitNameButton.addEventListener("click", async (e) => {
         }
 
         //const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
-        socket.emit('joinLobbyTesting', lobbyId/*, {gameSessionId:lobbyId, playerName:name, playerTeam: '1'}*/)
+        socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'})
         //console.lobby(socket.id)
 
-        $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')
+        await $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')
         load_script('./scripts/lobby.js')
 
     }
@@ -55,7 +55,7 @@ function sleep(ms) {
   }
 
 
-load_script = function(src) {
+load_script =  async function(src) {
   // Initialize scripts queue
   if( load_script.scripts === undefined ) {
       load_script.scripts = [];
