@@ -1,5 +1,6 @@
 const GameSession = require('../models/game_session.js')
-const player = require('../models/game_session_players.js')
+const Player = require('../models/game_session_players.js')
+const gameSessionUtils = require('../lib/game_session_helper.js')
 
 const GetAllGameSessions = async (req, res) => {
     try{
@@ -32,7 +33,7 @@ const CreateGameSession = async (req, res) => {
     try{
         // check if player already exists
         const {gameId:gameSessionIdValue} = req.body.gameSessionId
-        const checkifGameSessionExists = await player.find({gameSessionId:gameSessionIdValue})
+        const checkifGameSessionExists = await GameSession.find({gameSessionId:gameSessionIdValue})
         if(checkifGameSessionExists != ''){
             res.status(400).json({mesg: 'this game session already exists'})
             return 
@@ -67,26 +68,41 @@ const UpdateGameSession = async (req, res) => {
     }
 }
 
-const DeleteGameSession = async (req, res) => {
+// const del = async function DeleteAllPlayersInGameSession(JSONresponse){
+//     console.log('asd')
+//     JSONresponse.array.forEach(element => {
+//         console.log(element)
+//     });
+// }
+
+const DeleteGameSessionAndPlayers = async (req, res) => {
     try{
         const {gameId:gameSessionId} = req.params
+
+        const playerMongoResponse = await Player.find({gameSessionId:gameSessionId})
+        await gameSessionUtils.DeleteAllPlayersInGameSession(playerMongoResponse, gameSessionId)
+
         const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionId})
 
-        if(!gameSessionMongoResponse){
-           res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
-           return 
-        }
+        // if(!gameSessionMongoResponse){
+        //    res.status(404).json({mesg: `No session with id: ${gameSessionId}`})
+        //    return 
+        // }
         res.status(200).json({task:null, status: 'success'})
     }
     catch(error){
+        console.log(error)
         res.status(500).json({mesg: error})
     }
 }
+
+
 
 module.exports = {
     GetAllGameSessions,
     GetGameSession,
     CreateGameSession,
     UpdateGameSession,
-    DeleteGameSession
+    DeleteGameSessionAndPlayers
 }
+

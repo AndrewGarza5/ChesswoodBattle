@@ -85,12 +85,14 @@ const UpdatePlayer = async (req, res) => {
 const DeletePlayer = async (req, res) => {
     try{
         const {gameId:gameSessionIdValue} = req.params
-        const {playerId:playerIdValue} = req.params  
-        const playerMongoResponse = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerId:playerIdValue})
-
+        const {playerId:playerSocketIdValue} = req.params  
+        const playerMongoResponse = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerId:playerSocketIdValue})
+        console.log(2131)
         if(!playerMongoResponse){
-            return res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerIdValue}`})
+            res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
+            return 
         }
+        console.log(2131124124)
         res.status(200).json({task:null, status: 'success'})
     }
     catch(error){

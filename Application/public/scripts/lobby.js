@@ -9,6 +9,11 @@ socket.on("connect_error", (err) => {
     console.log(err.message); 
   });
 
+  socket.on('message', message => {
+    console.log(message)
+    //socket.message('what up')
+})
+
 const ShowTeam1 = async () => {
     
 }
@@ -43,6 +48,7 @@ switchToTeam2ButtonDOM.addEventListener("click", async (e) => {
 })
 
 startGameDOM.addEventListener("click", async (e) => {
-    socket.emit('messageRoom', `Hello this is a message from ${socket.id}`)
+
+    socket.emit('sendMessageToOthersInRoom', {message: `Hello bitches this is a message from ${socket.id}`, gameSessionId: lobbyId})
 
 })

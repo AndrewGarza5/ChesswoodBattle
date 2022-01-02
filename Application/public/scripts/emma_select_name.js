@@ -8,11 +8,6 @@ const nameChangeInput = document.getElementById("name-change-input")
 const lobbyWrapper = document.getElementById('lobby-wrapper')
 const errorBoxFormDOM = document.getElementById('error-box-form')
 
-socket.on('message', message => {
-    console.log(message)
-    //socket.message('what up')
-})
-
 
 submitNameButton.addEventListener("click", async (e) => {
     try{
@@ -22,7 +17,10 @@ submitNameButton.addEventListener("click", async (e) => {
         }
 
         //const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
-        socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'})
+        // socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'}, (response) => {
+          
+        // });
+        //socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'})
         //console.lobby(socket.id)
 
         await $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')

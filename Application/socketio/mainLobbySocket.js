@@ -9,11 +9,19 @@ module.exports = (io, socket) => {
       }
       catch(error){
         console.log(error)
+        callback({
+          status: "BAD"
+        });
       }
+    }
+
+    const sendMessageToOthersInRoom = (payload) => {
+      console.log(payload.gameSessionId, payload.message)
+      socket.to(payload.gameSessionId).emit('message', payload.message)
     }
   
 
   
     socket.on("joinLobbyFromSelectNamePage", joinLobbyFromSelectNamePage)
-    //socket.on("joinLobbyFromSelectNamePage", joinLobbyFromSelectNamePage)
+    socket.on("sendMessageToOthersInRoom", sendMessageToOthersInRoom)
   }
