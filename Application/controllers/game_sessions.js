@@ -75,19 +75,20 @@ const DeleteGameSessionAndPlayers = async (req, res) => {
     try{
         const gameSessionIdValue = req.params['gameId']
         // check if game session exists
-        if(await gameSessionUtils.CheckIfGameSessionExists(gameSessionIdValue)){
+        if(!await gameSessionUtils.CheckIfGameSessionExists(gameSessionIdValue)){
             res.status(404).json({msg: `No session with id: ${gameSessionIdValue}`})
             return 
         }
 
+
         if(!await gameSessionUtils.DeleteAllPlayersInGameSession(gameSessionIdValue)){
             res.status(500).json({msg: 'Something went wrong, try again'})
+            return
         }
 
-        // const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionId})
+        const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionIdValue})
 
-
-        // res.status(200).json({task:null, status: 'success'})
+        res.status(200).json({task:null, status: 'success'})
     }
     catch(error){
         console.log(error)
