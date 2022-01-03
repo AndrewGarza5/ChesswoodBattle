@@ -1,4 +1,4 @@
-const gameSession = require('../models/game_session.js')
+const GameSession = require('../models/game_sessions.js')
 const player = require('../models/game_session_players.js')
 const { v1: uuidv1 } = require('uuid');
 
@@ -13,15 +13,20 @@ const GetAllPlayers = async (req, res) => {
     
 }
 
+const GetAllPlayersInGameSession = async (req,res) => {
+
+}
+
 const GetPlayer = async (req, res) => {
 
     try{
         const {gameId:gameSessionIdValue} = req.params
-        const {playerId:playerIdValue} = req.params
-        const playerMongoResponse = await player.findOne({gameSessionId:gameSessionIdValue, playerId:playerIdValue})
+        const {playerId:playerSocketIdValue} = req.params
+
+        const playerMongoResponse = await player.findOne({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
 
         if(!playerMongoResponse){
-            return res.status(404).json({mesg: `Player ${playerIdValue} in game session ${gameSessionIdValue} does not exist`})
+            return res.status(404).json({mesg: `Player ${playerSocketIdValue} in game session ${gameSessionIdValue} does not exist`})
         }
         res.status(200).send(playerMongoResponse)
     }
@@ -34,20 +39,28 @@ const CreatePlayer = async (req, res) => {
 
     try{
         const gameSessionIdValue = req.params['gameId']
-        const playerIdValue = uuidv1()
-        console.log('tets')
+        const playerSocketIdValue = req.params['playerId']
 
-        // check if player already exists
-        const checkifPlayerExists = await player.find({gameSessionId:gameSessionIdValue, playerSocketId:playerIdValue})
-        if(checkifPlayerExists != ''){
-            res.status(400).json({mesg: 'this player already exists'})
+        // check if lobby exists
+        const checkIfLobbyExists = await GameSession.find({gameSessionId:gameSessionIdValue})
+        console.log(checkIfLobbyExists)
+        if(!checkIfLobbyExists){
+            console.log('asfas')
+            res.status(400).json({mesg: 'this lobby does not exist'})
             return 
         }
 
+        // makes sure codes match
+        if(req.params['gameId'] != req.body.gameSessionId){
+            
+            res.status(400).json({mesg: 'the lobby codes in body and params do not match, bad request'})
+            return
+        }
+
         const newPlayerJSON = {
-            gameSessionId: req.body.gameSessionId,
+            gameSessionId: gameSessionIdValue,
             playerName: req.body.playerName,
-            playerSocketId: playerIdValue,
+            playerSocketId: playerSocketIdValue,
             playerTeam: req.body.playerTeam
         }
         
@@ -65,9 +78,9 @@ const CreatePlayer = async (req, res) => {
 const UpdatePlayer = async (req, res) => {
     try{
         const {gameId: gameSessionIdValue} = req.params
-        const {playerId: playerIdValue} = req.params
+        const {playerId: playerSocketIdValue} = req.params
 
-        const playerMongoResponse = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerId:playerIdValue}, req.body, {
+        const playerMongoResponse = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerId:playerSocketIdValue}, req.body, {
             new:true, 
             runValidators:true
         })
@@ -84,15 +97,16 @@ const UpdatePlayer = async (req, res) => {
 
 const DeletePlayer = async (req, res) => {
     try{
-        const {gameId:gameSessionIdValue} = req.params
-        const {playerId:playerSocketIdValue} = req.params  
-        const playerMongoResponse = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerId:playerSocketIdValue})
-        console.log(2131)
-        if(!playerMongoResponse){
-            res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
-            return 
-        }
-        console.log(2131124124)
+        console.log(88)
+        // const {gameId:gameSessionIdValue} = req.params
+        // const {playerId:playerSocketIdValue} = req.params  
+        // const playerMongoResponse = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerId:playerSocketIdValue})
+        // console.log(gameSessionId, playerId)
+        // if(!playerMongoResponse){
+        //     res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
+        //     return 
+        // }
+        // console.log(2131124124)
         res.status(200).json({task:null, status: 'success'})
     }
     catch(error){
@@ -102,6 +116,7 @@ const DeletePlayer = async (req, res) => {
 
 module.exports = {
     GetAllPlayers,
+    GetAllPlayersInGameSession,
     GetPlayer,
     CreatePlayer,
     UpdatePlayer,

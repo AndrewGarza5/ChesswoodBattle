@@ -1,4 +1,5 @@
-const GameSession = require('./routes/game_session.js')
+const GameSessions = require('./routes/game_sessions.js')
+const Players = require('./routes/players.js')
 const port = 5000 || process.env.PORT
 const express = require('express')
 const path = require('path')
@@ -25,7 +26,8 @@ app.use(function(req, res, next) {
   });
 
 // routes
-app.use('/api/v1/game-session', GameSession)
+app.use('/api/v1/game-sessions', GameSessions)
+app.use('/api/v1/players', Players)
 
 // Socket io
 const lobby = require('./socketio/mainLobbySocket.js')

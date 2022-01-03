@@ -14,7 +14,10 @@ const GameSessionSchema = new mongoose.Schema({
         trim: true,
         max:[16, 'amountOfPlayers cannot exceed 16'],
         min:[1, 'amountOfPlayers cannot be below 1']
+     },
+     gameSessionExpirationDate:{
+         type:String
      }
 })
 
-module.exports = mongoose.model('GameSession', GameSessionSchema)
+module.exports = mongoose.model('GameSessions', GameSessionSchema)
