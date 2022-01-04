@@ -1,26 +1,47 @@
 const params = window.location.search
-const lobbyId = new URLSearchParams(params).get('id')
+const gameSessionIdValue = new URLSearchParams(params).get('id')
 const confirmNameButton = document.getElementById("confirm-name-button")
 const emmaPicture = document.getElementById('emma-picture')
 const emmaSpeech = document.getElementById('emma-speech')
 const submitNameButton = document.getElementById("submit-name-button")
-const nameChangeInput = document.getElementById("name-change-input")
+const nameInput = document.getElementById("name-input")
 const lobbyWrapper = document.getElementById('lobby-wrapper')
 const errorBoxFormDOM = document.getElementById('error-box-form')
 
 
 submitNameButton.addEventListener("click", async (e) => {
     try{
-        const name = nameChangeInput.value
+        const name = nameInput.value
         if(name.length < 1 || name.length > 16){
             throw new Error('Name must be between 1 and 16 characters')
         }
 
-        //const response = await axios.post(`http://localhost:5000/api/v1/game-session/${gameSessionId}/players`, createPlayerJSON)
-        // socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'}, (response) => {
-          
-        // });
-        //socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:lobbyId, playerName:name, playerTeam: '1'})
+        
+        await socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:gameSessionIdValue, playerName:name, playerTeam: '1'}, async (response) => {
+          if(response.status == 200){
+
+            const createPlayerJSON = {
+              gameSessionId: gameSessionIdValue,
+              playerName: name,
+              playerTeam: 1,
+              playerSocketId: socket.id
+            }
+            const createPlayerResponse = await axios.post(
+              `http://localhost:5000/api/v1/game-sessions/${gameSessionIdValue}/players`, 
+              createPlayerJSON
+            )
+            if(createPlayerResponse.status == 202){
+              console.log('succ')
+            }
+            else{
+              throw new Error('Something went wrong creating your player, please try again')
+            }
+          }
+          else{
+            throw new Error('Unable to connect to socket session, try again')
+          }
+        });
+        //socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:gameSessionIdValue, playerName:name, playerTeam: '1'})
         //console.lobby(socket.id)
 
         await $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')

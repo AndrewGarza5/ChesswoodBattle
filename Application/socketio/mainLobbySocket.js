@@ -1,16 +1,15 @@
 module.exports = (io, socket) => {
-    const joinLobbyFromSelectNamePage = (payload) => {
+    const joinLobbyFromSelectNamePage = (payload, callback) => {
       try{
         socket.join(payload.gameSessionId);
-  
-        // Welcome current user
-        socket.emit('message', `Welcome to room ${payload.gameSessionId}`)
+        
+        callback({status: 200})
         
       }
       catch(error){
         console.log(error)
         callback({
-          status: "BAD"
+          status: 500
         });
       }
     }

@@ -35,8 +35,8 @@ const lobby = require('./socketio/mainLobbySocket.js')
 const onConnection = (socket) => {
   lobby(io, socket)
 }
-
 io.on("connection", onConnection)
+
 io.of("/").adapter.on("create-room", (room) => {
   console.log(`room ${room} was created`);
 });

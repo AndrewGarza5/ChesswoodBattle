@@ -19,12 +19,16 @@
                 <div class="name-change-words">
                     Name:
                 </div>
-                <input class="name-change-input" type="text" id="name-change-input" placeholder="">
+                <input class="name-input" type="text" id="name-input" placeholder="">
                 <button id="submit-name-button">Submit</button>
             </div>
         </div>
         <div id="error-box-form"></div>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./socket.io/socket.io.js"></script>
     <script>const socket = io("http://localhost:5000");</script>

@@ -18,32 +18,31 @@ const GetPlayer = async (req, res) => {
         const {gameId:gameSessionIdValue} = req.params
         const {playerId:playerSocketIdValue} = req.params
 
-        const playerMongoResponse = await player.findOne({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
+        const playerMongo = await player.findOne({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
 
-        if(!playerMongoResponse){
+        if(!playerMongo){
             return res.status(404).json({mesg: `Player ${playerSocketIdValue} in game session ${gameSessionIdValue} does not exist`})
         }
-        res.status(200).send(playerMongoResponse)
+        res.status(200).send(playerMongo)
     }
     catch(error){
         res.status(500).json({mesg: error})
     }
 }
 
-const CreatePlayer = async (req, res) => {
+const CreatePlayerAndAddToGameSession = async (req, res) => {
 
     try{
         const gameSessionIdValue = req.params['gameId']
 
         // check if lobby exists
-        const checkIfLobbyExists = await GameSession.find({gameSessionId:gameSessionIdValue})
-        console.log(checkIfLobbyExists)
-        if(!checkIfLobbyExists){
-            console.log('asfas')
+        const getGameSessionMongo = await GameSession.findOne({gameSessionId:gameSessionIdValue})
+        if(!getGameSessionMongo){
             res.status(400).json({mesg: 'this lobby does not exist'})
             return 
         }
 
+        // creates new player
         const newPlayerJSON = {
             gameSessionId: gameSessionIdValue,
             playerName: req.body.playerName,
@@ -51,10 +50,17 @@ const CreatePlayer = async (req, res) => {
             playerTeam: req.body.playerTeam
         }
         
-        const playerMongoResponse = await player.create(newPlayerJSON)
-        console.log(newPlayerJSON)
+        const playerMongo = await player.create(newPlayerJSON)
+
+        // Adds 1 to amount of players in game session
+        const updatedAmountOfPlayers = getGameSessionMongo.amountOfPlayers + 1
+        await GameSession.findOneAndUpdate(
+            {gameSessionId:gameSessionIdValue}, 
+            {amountOfPlayers: updatedAmountOfPlayers}, 
+            {new:true, runValidators:true}
+        )
         
-        res.status(202).send({playerMongoResponse})
+        res.status(202).send({playerMongo})
     }
     catch(error){
         res.status(500).json({mesg: error})
@@ -67,14 +73,14 @@ const UpdatePlayer = async (req, res) => {
         const {gameId: gameSessionIdValue} = req.params
         const {playerId: playerSocketIdValue} = req.params
 
-        const playerMongoResponse = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue}, req.body, {
+        const playerMongo = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue}, req.body, {
             new:true, 
             runValidators:true
         })
-        if(!playerMongoResponse){
+        if(!playerMongo){
             return res.status(404).json({mesg: `No session with id: ${uniqueId}`})
         }
-        res.status(200).json({playerMongoResponse})
+        res.status(200).json({playerMongo})
         
     }
     catch(error){
@@ -87,8 +93,8 @@ const DeletePlayer = async (req, res) => {
 
         const gameSessionIdValue = req.params['gameId']
         const playerSocketIdValue = req.params['playerId']  
-        const playerMongoResponse = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
-        if(!playerMongoResponse){
+        const playerMongo = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
+        if(!playerMongo){
             res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
             return 
         }
@@ -102,7 +108,7 @@ const DeletePlayer = async (req, res) => {
 module.exports = {
     GetAllPlayersInGameSession,
     GetPlayer,
-    CreatePlayer,
+    CreatePlayerAndAddToGameSession,
     UpdatePlayer,
     DeletePlayer
 }

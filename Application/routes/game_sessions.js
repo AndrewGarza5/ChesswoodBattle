@@ -12,7 +12,7 @@ const {
 const {
     GetAllPlayersInGameSession,
     GetPlayer,
-    CreatePlayer,
+    CreatePlayerAndAddToGameSession,
     UpdatePlayer,
     DeletePlayer
 } = require('../controllers/game_session_players.js')
@@ -20,7 +20,7 @@ const {
 router.route('/').get(GetAllGameSessions).post(CreateGameSession)
 router.route('/:gameId').get(GetGameSession).patch(UpdateGameSession).delete(DeleteGameSessionAndPlayers)
 
-router.route('/:gameId/players').get(GetAllPlayersInGameSession).post(CreatePlayer)
+router.route('/:gameId/players').get(GetAllPlayersInGameSession).post(CreatePlayerAndAddToGameSession)
 router.route('/:gameId/players/:playerId').get(GetPlayer).patch(UpdatePlayer).delete(DeletePlayer)
 
 module.exports = router

@@ -19,9 +19,9 @@ const headerWordsDOM = document.getElementById('header-words')
         }
         const JSONobj = {
           gameSessionId: gameSessionId,
-          amountOfPlayers: 1
+          amountOfPlayers: 0
         }
-        var res = await axios.post('http://localhost:5000/api/v1/game-session', JSONobj)
+        var res = await axios.post('http://localhost:5000/api/v1/game-sessions', JSONobj)
         console.log(res.body);
         window.location.href = `lobby.html?id=${gameSessionId}`
 
@@ -40,7 +40,7 @@ const headerWordsDOM = document.getElementById('header-words')
         throw new Error('The lobby code must be 4 characters.')
       }
       console.log(lobbyCode)
-      const response = await axios.get(`http://localhost:5000/api/v1/game-session/${lobbyCode}`) 
+      const response = await axios.get(`http://localhost:5000/api/v1/game-sessions/${lobbyCode}`) 
       console.log(response.status)
       if(response.status == 200){
         window.location.href = `lobby.html?id=${lobbyCode}`
