@@ -5,10 +5,11 @@ const GetAllPlayersInGameSession = async (req,res) => {
     try{
         const gameSessionIdValue = req.params['gameId']
         const playersList = await player.find({gameSessionId: gameSessionIdValue})
+            .catch(error => res.status(500).json({msg: error}))
         res.status(200).json({playersList})
     }
     catch(error){
-        res.status(500).json({mesg: error})
+        res.status(500).json({msg: error})
     }
 }
 
@@ -19,14 +20,14 @@ const GetPlayer = async (req, res) => {
         const {playerId:playerSocketIdValue} = req.params
 
         const playerMongo = await player.findOne({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
-
+            .catch(error => res.status(500).json({msg: error}))
         if(!playerMongo){
-            return res.status(404).json({mesg: `Player ${playerSocketIdValue} in game session ${gameSessionIdValue} does not exist`})
+            return res.status(404).json({msg: `Player ${playerSocketIdValue} in game session ${gameSessionIdValue} does not exist`})
         }
         res.status(200).send(playerMongo)
     }
     catch(error){
-        res.status(500).json({mesg: error})
+        res.status(500).json({msg: error})
     }
 }
 
@@ -38,7 +39,7 @@ const CreatePlayerAndAddToGameSession = async (req, res) => {
         // check if lobby exists
         const getGameSessionMongo = await GameSession.findOne({gameSessionId:gameSessionIdValue})
         if(!getGameSessionMongo){
-            res.status(400).json({mesg: 'this lobby does not exist'})
+            res.status(400).json({msg: 'this lobby does not exist'})
             return 
         }
 
@@ -58,12 +59,12 @@ const CreatePlayerAndAddToGameSession = async (req, res) => {
             {gameSessionId:gameSessionIdValue}, 
             {amountOfPlayers: updatedAmountOfPlayers}, 
             {new:true, runValidators:true}
-        )
+        ).catch(error => res.status(500).json({msg: error}))
         
         res.status(202).send({playerMongo})
     }
     catch(error){
-        res.status(500).json({mesg: error})
+        res.status(500).json({msg: error})
     }
     
 }
@@ -76,32 +77,47 @@ const UpdatePlayer = async (req, res) => {
         const playerMongo = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue}, req.body, {
             new:true, 
             runValidators:true
-        })
+        }).catch(error => res.status(500).json({msg: error}))
         if(!playerMongo){
-            return res.status(404).json({mesg: `No session with id: ${uniqueId}`})
+            return res.status(404).json({msg: `No session with id: ${uniqueId}`})
         }
         res.status(200).json({playerMongo})
         
     }
     catch(error){
-        res.status(500).json({mesg: error})
+        res.status(500).json({msg: error})
     }
 }
 
-const DeletePlayer = async (req, res) => {
+const DeletePlayerAndRemoveFromGameSession = async (req, res) => {
     try{
 
         const gameSessionIdValue = req.params['gameId']
         const playerSocketIdValue = req.params['playerId']  
+
         const playerMongo = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
+            .catch(error => res.status(500).json({msg: error}))
+
+        const getGameSessionMongo = await GameSession.findOne({gameSessionId:gameSessionIdValue})
+        const updatedAmountOfPlayers = getGameSessionMongo.amountOfPlayers - 1
+        const updateGameSessionMongo = await GameSession.findOneAndUpdate({gameSessionId:gameSessionIdValue},
+            {amountOfPlayers: updatedAmountOfPlayers},
+            {new:true, 
+            runValidators:true
+        }).catch(error => res.status(500).json({msg: error}))
+
         if(!playerMongo){
-            res.status(404).json({mesg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
+            res.status(404).json({msg: `No player with game id ${gameSessionIdValue} and player id ${playerSocketIdValue}`})
             return 
         }
+        else if(!updateGameSessionMongo){
+            res.status(500).json({msg:'Successfuly deleted player, but unsuccessfuly removed them from game session'})
+        }
+        
         res.status(200).json({task:null, status: 'success'})
     }
     catch(error){
-        res.status(500).json({mesg: error})
+        res.status(500).json({msg: error})
     }
 }
 
@@ -110,5 +126,5 @@ module.exports = {
     GetPlayer,
     CreatePlayerAndAddToGameSession,
     UpdatePlayer,
-    DeletePlayer
+    DeletePlayerAndRemoveFromGameSession
 }

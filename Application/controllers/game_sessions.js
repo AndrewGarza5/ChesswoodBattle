@@ -5,6 +5,7 @@ const gameSessionUtils = require('../lib/game_session_helper.js')
 const GetAllGameSessions = async (req, res) => {
     try{
         const gameSessionsMongoResponse = await GameSession.find({})
+            .catch(error => res.status(500).json({msg: error}))
         res.status(200).json({gameSessionsMongoResponse})
     }
     catch(error){
@@ -17,6 +18,7 @@ const GetGameSession = async (req, res) => {
     try{
         const gameSessionIdValue = req.params['gameId']
         const gameSessionMongoResponse = await GameSession.findOne({gameSessionId:gameSessionIdValue})
+            .catch(error => res.status(500).json({msg: error}))
         if(!gameSessionMongoResponse){
             return res.status(404).json({msg: `No session with id: ${gameSessionIdValue}`})
         }
@@ -43,9 +45,9 @@ const CreateGameSession = async (req, res) => {
         requestBody['gameSessionExpirationDate'] = gameSessionExpirationDate.toISOString()
 
         const gameSession = await GameSession.create(requestBody)
-        console.log(requestBody)
+            .catch(error => res.status(500).json({msg: error}))
         
-        res.status(202).send({gameSession})
+        res.status(202).json({gameSession})
     }
     catch(error){
         res.status(500).json({msg: error})
@@ -59,7 +61,8 @@ const UpdateGameSession = async (req, res) => {
         const gameSessionMongoResponse = await GameSession.findOneAndUpdate({gameSessionId:gameSessionId}, req.body, {
             new:true, 
             runValidators:true
-        })
+        }).catch(error => res.status(500).json({msg: error}))
+
         if(!gameSessionMongoResponse){
             return res.status(404).json({msg: `No session with id: ${gameSessionId}`})
         }
@@ -87,6 +90,7 @@ const DeleteGameSessionAndPlayers = async (req, res) => {
         }
 
         const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionIdValue})
+            .catch(error => res.status(500).json({msg: error}))
 
         res.status(200).json({task:null, status: 'success'})
     }

@@ -49,6 +49,8 @@ switchToTeam2ButtonDOM.addEventListener("click", async (e) => {
 
 startGameDOM.addEventListener("click", async (e) => {
 
-    socket.emit('sendMessageToOthersInRoom', {message: `Hello bitches this is a message from ${socket.id}`, gameSessionId: lobbyId})
-
+    //socket.emit('sendMessageToOthersInRoom', {message: `Hello bitches this is a message from ${socket.id}`, gameSessionId: lobbyId})
+    socket.emit('randomTest', async (response) => {
+        
+    })
 })

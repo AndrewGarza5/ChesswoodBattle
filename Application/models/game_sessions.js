@@ -13,7 +13,7 @@ const GameSessionSchema = new mongoose.Schema({
         required:[true, 'amountOfPlayers required'],
         trim: true,
         max:[16, 'amountOfPlayers cannot exceed 16'],
-        min:[1, 'amountOfPlayers cannot be below 1']
+        min:[0, 'amountOfPlayers cannot be below 0']
      },
      gameSessionExpirationDate:{
          type:String

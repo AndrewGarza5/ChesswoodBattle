@@ -11,19 +11,20 @@ const headerWordsDOM = document.getElementById('header-words')
 
         var min = 65
         var max = 90
-        var gameSessionId = ''
+        var gameSessionIdValue = ''
         for(var i = 0; i < 4; i++){
             var randomInt = Math.floor(Math.random() * (max - min) + min)
             var character = String.fromCharCode(randomInt)
-            gameSessionId += character
+            gameSessionIdValue += character
         }
         const JSONobj = {
-          gameSessionId: gameSessionId,
+          gameSessionId: gameSessionIdValue,
           amountOfPlayers: 0
         }
+        console.log(JSONobj)
         var res = await axios.post('http://localhost:5000/api/v1/game-sessions', JSONobj)
         console.log(res.body);
-        window.location.href = `lobby.html?id=${gameSessionId}`
+        window.location.href = `lobby.html?id=${gameSessionIdValue}` 
 
     } catch (error) {
       console.error(error);

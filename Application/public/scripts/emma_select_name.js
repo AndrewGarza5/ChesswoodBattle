@@ -44,8 +44,10 @@ submitNameButton.addEventListener("click", async (e) => {
         //socket.emit('joinLobbyFromSelectNamePage', {gameSessionId:gameSessionIdValue, playerName:name, playerTeam: '1'})
         //console.lobby(socket.id)
 
+        /************CHANGE HOW THIS IS DONE! FREQUENTLY DOES NOT WORK**************/
         await $('#lobby-wrapper').load('../components/main_lobby.html #main-lobby-component')
-        load_script('./scripts/lobby.js')
+        await load_script('./scripts/lobby.js')
+        /************CHANGE HOW THIS IS DONE! FREQUENTLY DOES NOT WORK**************/
 
     }
     catch(error){
