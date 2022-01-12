@@ -1,13 +1,21 @@
-module.exports = (io, socket) => {
-    const disconnection = (payload, callback) => {
+const { playersLogger, gameSessionsLogger } = require('../lib/logger.js')
+const axios = require('axios')
+
+module.exports = async (io, socket) => {
+    const disconnect =  async (payload, callback) => {
       try{
-        console.log('somebody disconnected')
+        const playerResponse = await axios.get(`http://localhost:5000/api/v1/players/${socket.id}`)
         
-        //callback({status: 200})
-        
+        if(playerResponse.status == 200){
+          await axios.delete(`http://localhost:5000/api/v1/game-sessions/${playerResponse.data.gameSessionId}/players/${socket.id}`)
+        }
+        else{
+          throw new Error(`Player ${socket.id} unsuccessfuly disconnected from game due to unsuccessful get request`)
+        }
       }
       catch(error){
-
+        console.log('Player disconnection error')
+        gameSessionsLogger.error(error)
       }
     }
 
@@ -16,6 +24,6 @@ module.exports = (io, socket) => {
       callback({status: 200})
     }
   
-    socket.on("disconnect", disconnection)
+    socket.on("disconnect", disconnect)
     socket.on('randomTest', randomTest)
   }

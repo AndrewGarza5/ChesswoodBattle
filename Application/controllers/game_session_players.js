@@ -3,7 +3,7 @@ const player = require('../models/game_session_players.js')
 
 const GetAllPlayersInGameSession = async (req,res) => {
     try{
-        const gameSessionIdValue = req.params['gameId']
+        const gameSessionIdValue = req.params['gameSessionId']
         const playersList = await player.find({gameSessionId: gameSessionIdValue})
             .catch(error => res.status(500).json({msg: error}))
         res.status(200).json({playersList})
@@ -13,28 +13,10 @@ const GetAllPlayersInGameSession = async (req,res) => {
     }
 }
 
-const GetPlayer = async (req, res) => {
-
-    try{
-        const {gameId:gameSessionIdValue} = req.params
-        const {playerId:playerSocketIdValue} = req.params
-
-        const playerMongo = await player.findOne({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
-            .catch(error => res.status(500).json({msg: error}))
-        if(!playerMongo){
-            return res.status(404).json({msg: `Player ${playerSocketIdValue} in game session ${gameSessionIdValue} does not exist`})
-        }
-        res.status(200).send(playerMongo)
-    }
-    catch(error){
-        res.status(500).json({msg: error})
-    }
-}
-
 const CreatePlayerAndAddToGameSession = async (req, res) => {
 
     try{
-        const gameSessionIdValue = req.params['gameId']
+        const gameSessionIdValue = req.params['gameSessionId']
 
         // check if lobby exists
         const getGameSessionMongo = await GameSession.findOne({gameSessionId:gameSessionIdValue})
@@ -53,7 +35,7 @@ const CreatePlayerAndAddToGameSession = async (req, res) => {
         
         const playerMongo = await player.create(newPlayerJSON)
 
-        // Adds 1 to amount of players in game session
+        // Adds +1 to amount of players in game session
         const updatedAmountOfPlayers = getGameSessionMongo.amountOfPlayers + 1
         await GameSession.findOneAndUpdate(
             {gameSessionId:gameSessionIdValue}, 
@@ -69,31 +51,11 @@ const CreatePlayerAndAddToGameSession = async (req, res) => {
     
 }
 
-const UpdatePlayer = async (req, res) => {
-    try{
-        const {gameId: gameSessionIdValue} = req.params
-        const {playerId: playerSocketIdValue} = req.params
-
-        const playerMongo = await player.findOneAndUpdate({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue}, req.body, {
-            new:true, 
-            runValidators:true
-        }).catch(error => res.status(500).json({msg: error}))
-        if(!playerMongo){
-            return res.status(404).json({msg: `No session with id: ${uniqueId}`})
-        }
-        res.status(200).json({playerMongo})
-        
-    }
-    catch(error){
-        res.status(500).json({msg: error})
-    }
-}
-
 const DeletePlayerAndRemoveFromGameSession = async (req, res) => {
     try{
 
-        const gameSessionIdValue = req.params['gameId']
-        const playerSocketIdValue = req.params['playerId']  
+        const gameSessionIdValue = req.params['gameSessionId']
+        const playerSocketIdValue = req.params['playerSocketId']  
 
         const playerMongo = await player.findOneAndDelete({gameSessionId:gameSessionIdValue, playerSocketId:playerSocketIdValue})
             .catch(error => res.status(500).json({msg: error}))
@@ -123,8 +85,6 @@ const DeletePlayerAndRemoveFromGameSession = async (req, res) => {
 
 module.exports = {
     GetAllPlayersInGameSession,
-    GetPlayer,
     CreatePlayerAndAddToGameSession,
-    UpdatePlayer,
     DeletePlayerAndRemoveFromGameSession
 }

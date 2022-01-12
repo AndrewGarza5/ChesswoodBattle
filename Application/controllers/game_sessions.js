@@ -16,7 +16,7 @@ const GetAllGameSessions = async (req, res) => {
 
 const GetGameSession = async (req, res) => {
     try{
-        const gameSessionIdValue = req.params['gameId']
+        const gameSessionIdValue = req.params['gameSessionId']
         const gameSessionMongoResponse = await GameSession.findOne({gameSessionId:gameSessionIdValue})
             .catch(error => res.status(500).json({msg: error}))
         if(!gameSessionMongoResponse){
@@ -40,9 +40,9 @@ const CreateGameSession = async (req, res) => {
 
         // adds expiration date to JSON
         var currDate = new Date()
-        var gameSessionExpirationDate = new Date(currDate.getTime() + 500*60000);
+        //var gameSessionExpirationDate = new Date(currDate.getTime() + 500*60000);
         requestBody = req.body
-        requestBody['gameSessionExpirationDate'] = gameSessionExpirationDate.toISOString()
+        requestBody['gameSessionCreationDate'] = currDate.toISOString()
 
         const gameSession = await GameSession.create(requestBody)
             .catch(error => res.status(500).json({msg: error}))
@@ -57,7 +57,7 @@ const CreateGameSession = async (req, res) => {
 
 const UpdateGameSession = async (req, res) => {
     try{
-        const gameSessionId = req.params['gameId']
+        const gameSessionId = req.params['gameSessionId']
         const gameSessionMongoResponse = await GameSession.findOneAndUpdate({gameSessionId:gameSessionId}, req.body, {
             new:true, 
             runValidators:true
@@ -76,7 +76,7 @@ const UpdateGameSession = async (req, res) => {
 
 const DeleteGameSessionAndPlayers = async (req, res) => {
     try{
-        const gameSessionIdValue = req.params['gameId']
+        const gameSessionIdValue = req.params['gameSessionId']
         // check if game session exists
         if(!await gameSessionUtils.CheckIfGameSessionExists(gameSessionIdValue)){
             res.status(404).json({msg: `No session with id: ${gameSessionIdValue}`})

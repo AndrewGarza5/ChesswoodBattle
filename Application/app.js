@@ -5,7 +5,7 @@ const express = require('express')
 const path = require('path')
 const { createServer } = require('http')
 const {Server} = require('socket.io')
-const axios = require('axios')
+const { playersLogger, gameSessionsLogger } = require('./lib/logger.js')
 
 
 const connectDB = require('./db/connect')
@@ -47,6 +47,10 @@ io.on("connection", onConnection)
 //   console.log(`socket ${id} has joined room ${room}`);
 // });
 
+// test endpoint
+app.use('/test', (req,res) => {
+    res.send("Hello World!");
+})
 
 
 // start server and mongodb
