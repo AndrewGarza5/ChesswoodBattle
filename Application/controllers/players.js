@@ -46,9 +46,25 @@ const UpdatePlayer = async (req, res) => {
     }
 }
 
+const DeletePlayer = async (req, res) => {
+    try{
+
+        const playerSocketIdValue = req.params['playerSocketId']  
+
+        const playerMongo = await Player.findOneAndDelete({playerSocketId:playerSocketIdValue})
+            .catch(error => res.status(500).json({msg: error}))
+
+        res.status(200).json({task:null, status: 'success'})
+    }
+    catch(error){
+        res.status(500).json({msg: error})
+    }
+}
+
 module.exports = {
     GetAllPlayers,
     GetPlayer,
-    UpdatePlayer
+    UpdatePlayer,
+    DeletePlayer
 }
 

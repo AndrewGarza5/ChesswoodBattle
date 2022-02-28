@@ -8,7 +8,7 @@ exports.DeleteAllPlayersInGameSession = async function(gameSessionId){
         const JSONobj = players.data.playersList
 
         JSONobj.forEach(async element => {
-            const response = await axios.delete(`http://localhost:5000/api/v1/game-sessions/${gameSessionId}/players/${element.playerSocketId}`)
+            const response = await axios.delete(`http://localhost:5000/api/v1/players/${element.playerSocketId}`)
             if(response.status == 404 || response.status == 500){
                 throw new Error('bad request')
             }

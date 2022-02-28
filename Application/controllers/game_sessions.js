@@ -89,13 +89,12 @@ const DeleteGameSessionAndPlayers = async (req, res) => {
             return
         }
 
-        const gameSessionMongoResponse = await GameSession.findOneAndDelete({gameSessionId:gameSessionIdValue})
+        await GameSession.findOneAndDelete({gameSessionId:gameSessionIdValue})
             .catch(error => res.status(500).json({msg: error}))
 
         res.status(200).json({task:null, status: 'success'})
     }
     catch(error){
-        console.log(error)
         res.status(500).json({msg: error})
     }
 }

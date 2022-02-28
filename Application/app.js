@@ -1,6 +1,7 @@
 const GameSessions = require('./routes/game_sessions.js')
 const Players = require('./routes/players.js')
-const port = 5000 || process.env.PORT
+const Lobby = require('./routes/lobby.js')
+const port = 5000 
 const express = require('express')
 const path = require('path')
 const { createServer } = require('http')
@@ -26,6 +27,7 @@ app.use(function(req, res, next) {
   });
 
 // routes
+app.use('/lobby/:gameSessionId', Lobby)
 app.use('/api/v1/game-sessions', GameSessions)
 app.use('/api/v1/players', Players)
 
